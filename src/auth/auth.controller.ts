@@ -1,4 +1,4 @@
-import {Controller, Post, Body, UseGuards, Request, Get } from '@nestjs/common';
+import {Controller, Post, Body, UseGuards, Request, Get, BadRequestException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 
@@ -7,7 +7,14 @@ export class AuthController {
   constructor(private authService: AuthService, private userService: UsersService) {}
 
     @Post('register')
-    async register(@Body() body: { username: string; password: string}) {
+    async register(@Body() body: { username?: string; password?: string }) {
+        // validate required fields
+        if (!body || !body.username || typeof body.username !== 'string') {
+          throw new BadRequestException('username is required and must be a string');
+        }
+        if (!body.password || typeof body.password !== 'string') {
+          throw new BadRequestException('password is required and must be a string');
+        }
         return this.userService.createUser(body.username, body.password);
     }
 
