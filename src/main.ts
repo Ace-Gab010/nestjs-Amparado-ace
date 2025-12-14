@@ -6,18 +6,6 @@ import * as dotenv from 'dotenv';
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule);
-  
-  // Enable CORS to allow frontend requests
-  app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'https://p008-mgl6.vercel.app', // Your Vercel domain
-      process.env.FRONTEND_URL, // Additional allowed origins
-    ].filter(Boolean), // Remove undefined values
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  });
 
   const basePort = Number(process.env.PORT) || 3000;
   const maxRetries = 10; // try up to basePort + maxRetries

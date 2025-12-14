@@ -11,7 +11,7 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
 
     async onModuleInit() {
         this.pool = mysql.createPool({
-            host: process.env.DB_HOST,
+            host: process.env. DB_HOST ,
             port: +(process.env.DB_PORT || 15260),
             user: process.env.DB_USER,
             password: process.env.DB_PASSWORD,
