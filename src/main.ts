@@ -9,7 +9,11 @@ async function bootstrap() {
   
   // Enable CORS to allow frontend requests
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'https://p008-mgl6.vercel.app', // Your Vercel domain
+      process.env.FRONTEND_URL, // Additional allowed origins
+    ].filter(Boolean), // Remove undefined values
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
